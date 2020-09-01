@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import React, { FC, useRef, useEffect, useLayoutEffect, useCallback, useState } from 'react';
 import { AdaptiveCard } from 'adaptivecards';
 
 interface RedaptiveCardProps {
@@ -7,22 +7,31 @@ interface RedaptiveCardProps {
 
 export const RedaptiveCard: FC<RedaptiveCardProps> = props => {
     const { card } = props;
-    const { current: adaptiveCard } = useRef(new AdaptiveCard());
 
-    const mountRef = useCallback((node: HTMLDivElement) => {
-        if (node !== null) {
-            adaptiveCard.parse(card);
-            const renderedCard = adaptiveCard.render();
+    const [instance] = useState(() => new AdaptiveCard());
+    const [node, setNode] = useState<HTMLDivElement | null>(null);
 
-            if (!renderedCard)
-                return;
-
-            if (node.firstChild)
-                node.removeChild(node.firstChild);
-
-            node.appendChild(renderedCard);
+    const mountRef = useCallback((newNode: HTMLDivElement) => {
+        if (newNode !== null && newNode !== node) {
+            setNode(newNode);
         }
-    }, [card]);
+    }, []);
+
+    useEffect(() => {
+        if (!node)
+            return;
+
+        instance.parse(card);
+        const renderedCard = instance.render();
+
+        if (!renderedCard)
+            return;
+
+        if (node.firstChild)
+            node.removeChild(node.firstChild);
+
+        node.appendChild(renderedCard);
+    }, [node, card]);
 
     return <div ref={mountRef} />
 };
