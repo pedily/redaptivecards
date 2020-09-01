@@ -4,7 +4,7 @@
   "description": "a minimal react wrapper around adaptivecards",
   "module": "dist/redaptivecards.esm.js",
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc --declaration -p .",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
