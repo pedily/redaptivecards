@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { RedaptiveCard } from './RedaptiveCard'
+import { RedaptiveCard } from '../src/RedaptiveCard'
 
 export default {
     title: 'RedaptiveCard'
