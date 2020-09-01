@@ -1,0 +1,1 @@
+export { RedaptiveCard } from './RedaptiveCard';

@@ -1,0 +1,30 @@
+{
+  "name": "redaptivecards",
+  "version": "1.0.0",
+  "description": "a minimal react wrapper around adaptivecards",
+  "module": "dist/redaptivecards.esm.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedily/redaptivecards.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedily/redaptivecards/issues"
+  },
+  "homepage": "https://github.com/pedily/redaptivecards#readme",
+  "dependencies": {
+    "adaptivecards": "^2.1.0",
+    "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^5.0.2",
+    "@types/react": "^16.9.49",
+    "rollup": "^2.26.9",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.2"
+  }
+}
