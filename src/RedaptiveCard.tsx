@@ -1,25 +1,29 @@
-import React, { FC, useRef, useEffect } from 'react';
-import { AdaptiveCard, SerializableObject } from 'adaptivecards';
+import React, { FC, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import { AdaptiveCard } from 'adaptivecards';
 
 interface RedaptiveCardProps {
-    card: SerializableObject;
+    card: any;
 }
 
 export const RedaptiveCard: FC<RedaptiveCardProps> = props => {
     const { card } = props;
-
-    const rootRef = useRef<HTMLDivElement>(null);
-    const { current: rootEl } = rootRef;
     const { current: adaptiveCard } = useRef(new AdaptiveCard());
 
-    useEffect(() => {
-        if (!rootEl)
-            return;
+    const mountRef = useCallback((node: HTMLDivElement) => {
+        if (node !== null) {
+            adaptiveCard.parse(card);
+            const renderedCard = adaptiveCard.render();
 
-        adaptiveCard.parse(card);
-        adaptiveCard.render(rootEl);
+            if (!renderedCard)
+                return;
+
+            if (node.firstChild)
+                node.removeChild(node.firstChild);
+
+            node.appendChild(renderedCard);
+        }
     }, [card]);
 
-    return <div ref={rootRef} />
+    return <div ref={mountRef} />
 };
 
